@@ -22,7 +22,7 @@ folders = []
 with open(args.folders) as f:
   folders = [line.strip() for line in f]
 
-for folder in fodlers:
+for folder in folders:
   files = [ f for f in listdir(folder) if isfile(join(folder,f)) ]
   pe_libs, se_libs = [], []
   for f in files:
@@ -40,9 +40,9 @@ for folder in fodlers:
   out_dir = args.asm_dir + '/' + out_name
   cmd = '%s -o %s' % (args.spades_path, out_name)
   for i, (f1, f2) in enumerate(pe_libs):
-    cmd += ' --pe%d-1 %s --pe%d-2 %d' % (i, folder+'/'+f1, i, folder+'/'+f2)
+    cmd += ' --pe%d-1 %s --pe%d-2 %s' % (i+1, folder+'/'+f1, i+1, folder+'/'+f2)
   for i, f in enumerate(se_libs):
-    cmd += ' --s%d %s' % (i, folder+'/'+f)
+    cmd += ' --s%d %s' % (i+1, folder+'/'+f)
 
   print cmd
   os.system(cmd)
